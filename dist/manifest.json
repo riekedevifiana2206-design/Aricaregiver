@@ -1,0 +1,26 @@
+{
+  "name": "Ari Caregiver Invoice",
+  "short_name": "Ari Caregiver",
+  "description": "Premium caregiver invoice, booking, DP, refund and thank you card generator. Works offline.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F8FFF8",
+  "theme_color": "#F8FFF8",
+  "categories": ["business", "productivity", "medical"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
