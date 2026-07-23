@@ -13,10 +13,10 @@ import { ThankYouScreen } from "./screens/ThankYouScreen";
 const TITLES: Record<TabId, string> = {
   home: "Ari Caregiver Invoice",
   booking: "Booking",
-  dp: "DP Calculator",
+  dp: "Kalkulator DP",
   invoice: "Invoice",
   refund: "Refund",
-  thanks: "Thank You Card",
+  thanks: "Kartu Terima Kasih",
 };
 
 function App() {

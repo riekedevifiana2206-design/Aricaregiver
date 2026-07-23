@@ -86,7 +86,7 @@ export function SignaturePad({ value, onChange, label = "Digital Signature" }: S
         />
         {!hasDrawn && (
           <span className="absolute inset-0 flex items-center justify-center text-sm pointer-events-none opacity-50">
-            Sign here
+            Tanda tangan di sini
           </span>
         )}
       </div>
@@ -96,7 +96,7 @@ export function SignaturePad({ value, onChange, label = "Digital Signature" }: S
         className="mt-1 text-xs font-medium"
         style={{ color: "var(--c-text-muted)" }}
       >
-        Clear
+        Hapus
       </button>
     </div>
   );

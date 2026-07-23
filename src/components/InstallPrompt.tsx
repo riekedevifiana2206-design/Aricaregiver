@@ -61,7 +61,7 @@ export function InstallPrompt() {
   if (installed) {
     return (
       <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 surface px-4 py-3 animate-slide-up max-w-md w-[90%] text-center">
-        <p className="text-sm font-medium">Ari Caregiver Invoice successfully installed.</p>
+        <p className="text-sm font-medium">Ari Caregiver Invoice berhasil dipasang.</p>
       </div>
     );
   }
@@ -76,20 +76,20 @@ export function InstallPrompt() {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-10 h-1.5 rounded-full bg-gray-300 mx-auto mb-3" />
-        <h3 className="text-lg font-semibold">Install Ari Caregiver Invoice</h3>
+        <h3 className="text-lg font-semibold">Pasang Ari Caregiver Invoice</h3>
         <p className="text-sm mt-1" style={{ color: "var(--c-text-muted)" }}>
-          Install this application for faster access directly from your Home Screen.
+          Pasang aplikasi ini untuk akses lebih cepat langsung dari Layar Utama Anda.
         </p>
 
         {isIOS && (
           <div className="mt-3 p-3 rounded-xl text-xs" style={{ background: "color-mix(in srgb, var(--c-primary) 8%, transparent)" }}>
-            On Safari, tap the Share button, then choose <strong>Add to Home Screen</strong>.
+            Di Safari, ketuk tombol Bagikan, lalu pilih <strong>Tambah ke Layar Utama</strong>.
           </div>
         )}
 
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <button className="btn-ghost" onClick={handleLater}>Maybe Later</button>
-          <button className="btn-primary" onClick={handleInstall}>Install Now</button>
+          <button className="btn-ghost" onClick={handleLater}>Nanti Saja</button>
+          <button className="btn-primary" onClick={handleInstall}>Pasang Sekarang</button>
         </div>
       </div>
     </div>

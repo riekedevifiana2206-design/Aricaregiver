@@ -11,32 +11,32 @@ interface HomeScreenProps {
 const SHORTCUTS: { tab: TabId; title: string; desc: string; icon: JSX.Element }[] = [
   {
     tab: "booking",
-    title: "Create Booking",
+    title: "Buat Booking",
     desc: "Dadakan & Lengkap",
     icon: <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" />,
   },
   {
     tab: "invoice",
-    title: "Create Invoice",
-    desc: "4 templates, 10 themes",
+    title: "Buat Invoice",
+    desc: "4 template, 10 tema",
     icon: <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z M14 2v6h6 M8 13h8 M8 17h5" />,
   },
   {
     tab: "dp",
-    title: "DP Calculator",
-    desc: "Down payment & balance",
+    title: "Kalkulator DP",
+    desc: "Down payment & sisa",
     icon: <path d="M3 6h18M3 12h18M3 18h12" />,
   },
   {
     tab: "refund",
     title: "Refund",
-    desc: "Refund & cancellation",
+    desc: "Refund & pembatalan",
     icon: <path d="M12 1v6m0 0l-3-3m3 3l3-3 M5 9a7 7 0 1 0 7 7" />,
   },
   {
     tab: "thanks",
-    title: "Thank You Card",
-    desc: "Premium gratitude card",
+    title: "Kartu Terima Kasih",
+    desc: "Premium & elegan",
     icon: <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />,
   },
 ];
@@ -47,7 +47,7 @@ const KIND_LABEL: Record<DocKind, string> = {
   dp: "DP",
   invoice: "Invoice",
   refund: "Refund",
-  thank: "Thank You",
+  thank: "Terima Kasih",
 };
 
 export function HomeScreen({ onNavigate }: HomeScreenProps) {
@@ -60,7 +60,7 @@ export function HomeScreen({ onNavigate }: HomeScreenProps) {
       </div>
 
       <div>
-        <h2 className="px-1 mb-2 text-sm font-semibold" style={{ color: "var(--c-text-muted)" }}>Shortcuts</h2>
+        <h2 className="px-1 mb-2 text-sm font-semibold" style={{ color: "var(--c-text-muted)" }}>Pintasan</h2>
         <div className="grid grid-cols-2 gap-3">
           {SHORTCUTS.map((s) => (
             <Card key={s.tab} onClick={() => onNavigate(s.tab)} className="p-4 flex flex-col gap-2">
@@ -81,12 +81,12 @@ export function HomeScreen({ onNavigate }: HomeScreenProps) {
 
       <div>
         <div className="flex items-center justify-between px-1 mb-2">
-          <h2 className="text-sm font-semibold" style={{ color: "var(--c-text-muted)" }}>Recent Documents</h2>
+          <h2 className="text-sm font-semibold" style={{ color: "var(--c-text-muted)" }}>Dokumen Terbaru</h2>
           {docs.length > 0 && <span className="text-xs" style={{ color: "var(--c-text-muted)" }}>{docs.length}</span>}
         </div>
         {docs.length === 0 ? (
           <Card className="text-center py-8">
-            <p className="text-sm" style={{ color: "var(--c-text-muted)" }}>No documents yet. Create a booking, invoice, or card to get started.</p>
+            <p className="text-sm" style={{ color: "var(--c-text-muted)" }}>Belum ada dokumen. Buat booking, invoice, atau kartu untuk memulai.</p>
           </Card>
         ) : (
           <div className="space-y-2">

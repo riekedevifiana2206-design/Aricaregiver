@@ -17,12 +17,12 @@ const ICONS: Record<TabId, JSX.Element> = {
 };
 
 const LABELS: Record<TabId, string> = {
-  home: "Home",
+  home: "Beranda",
   booking: "Booking",
   dp: "DP",
   invoice: "Invoice",
   refund: "Refund",
-  thanks: "Thank You",
+  thanks: "Terima Kasih",
 };
 
 const ORDER: TabId[] = ["home", "booking", "dp", "invoice", "refund", "thanks"];

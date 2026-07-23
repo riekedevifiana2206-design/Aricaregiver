@@ -24,7 +24,7 @@ function StatusBadge({ status, primary, primaryLight, primaryDark }: { status: s
   const color = paid ? "#166534" : pending ? primaryDark : "#92400E";
   return (
     <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: bg, color }}>
-      {status || "Unpaid"}
+      {status || "Belum Lunas"}
     </span>
   );
 }
@@ -43,13 +43,13 @@ function ClassicTemplate({ data }: { data: InvoiceData }) {
       <table className="w-full text-sm border-collapse">
         <tbody>
           {[
-            ["Date", formatDate(data.date)],
-            ["Patient Name", data.patientName],
-            ["Hospital", data.hospital],
-            ["Location", data.location],
-            ["Service", data.service],
+            ["Tanggal", formatDate(data.date)],
+            ["Nama Pasien", data.patientName],
+            ["Rumah Sakit", data.hospital],
+            ["Lokasi", data.location],
+            ["Layanan", data.service],
             ["Caregiver", data.caregiver],
-            ["Duration", data.duration],
+            ["Durasi", data.duration],
           ].map(([k, v]) => (
             <tr key={k} className="border-b" style={{ borderColor: "#F1F5F9" }}>
               <td className="py-2 pr-4 text-slate-500 font-medium w-1/3">{k}</td>
@@ -61,22 +61,22 @@ function ClassicTemplate({ data }: { data: InvoiceData }) {
       <table className="w-full text-sm mt-4 border-collapse">
         <thead>
           <tr style={{ background: theme.primaryLight, color: theme.primaryDark }}>
-            <th className="text-left py-2 px-3 font-semibold rounded-l-lg">Description</th>
-            <th className="text-right py-2 px-3 font-semibold rounded-r-lg">Amount</th>
+            <th className="text-left py-2 px-3 font-semibold rounded-l-lg">Deskripsi</th>
+            <th className="text-right py-2 px-3 font-semibold rounded-r-lg">Jumlah</th>
           </tr>
         </thead>
         <tbody>
-          <tr className="border-b" style={{ borderColor: "#F1F5F9" }}><td className="py-2 px-3">Total Bill</td><td className="py-2 px-3 text-right">{formatCurrency(data.totalBill)}</td></tr>
+          <tr className="border-b" style={{ borderColor: "#F1F5F9" }}><td className="py-2 px-3">Total Tagihan</td><td className="py-2 px-3 text-right">{formatCurrency(data.totalBill)}</td></tr>
           <tr className="border-b" style={{ borderColor: "#F1F5F9" }}><td className="py-2 px-3">DP (Down Payment)</td><td className="py-2 px-3 text-right">{formatCurrency(data.dp)}</td></tr>
-          <tr style={{ background: theme.primaryLight }}><td className="py-2 px-3 font-bold" style={{ color: theme.primaryDark }}>Remaining Payment</td><td className="py-2 px-3 text-right font-bold" style={{ color: theme.primaryDark }}>{formatCurrency(data.remaining)}</td></tr>
+          <tr style={{ background: theme.primaryLight }}><td className="py-2 px-3 font-bold" style={{ color: theme.primaryDark }}>Sisa Pembayaran</td><td className="py-2 px-3 text-right font-bold" style={{ color: theme.primaryDark }}>{formatCurrency(data.remaining)}</td></tr>
         </tbody>
       </table>
       <div className="flex items-center justify-between mt-4">
         <StatusBadge status={data.status} primary={theme.primary} primaryLight={theme.primaryLight} primaryDark={theme.primaryDark} />
         <span className="text-xs text-slate-400">Ari Caregiver Invoice</span>
       </div>
-      {data.notes && <p className="mt-3 text-sm text-slate-600 border-t pt-3" style={{ borderColor: "#F1F5F9" }}>Notes: {data.notes}</p>}
-      {data.signature && <div className="mt-4"><p className="text-xs text-slate-500 mb-1">Authorized Signature</p><img src={data.signature} alt="signature" className="h-16" /></div>}
+      {data.notes && <p className="mt-3 text-sm text-slate-600 border-t pt-3" style={{ borderColor: "#F1F5F9" }}>Catatan: {data.notes}</p>}
+      {data.signature && <div className="mt-4"><p className="text-xs text-slate-500 mb-1">Tanda Tangan Otorisasi</p><img src={data.signature} alt="tanda tangan" className="h-16" /></div>}
     </div>
   );
 }
@@ -96,13 +96,13 @@ function ModernTemplate({ data }: { data: InvoiceData }) {
       </div>
       <div className="grid grid-cols-2 gap-3 mb-4">
         {[
-          ["Date", formatDate(data.date)],
-          ["Patient", data.patientName],
-          ["Hospital", data.hospital],
-          ["Location", data.location],
-          ["Service", data.service],
+          ["Tanggal", formatDate(data.date)],
+          ["Pasien", data.patientName],
+          ["Rumah Sakit", data.hospital],
+          ["Lokasi", data.location],
+          ["Layanan", data.service],
           ["Caregiver", data.caregiver],
-          ["Duration", data.duration],
+          ["Durasi", data.duration],
         ].map(([k, v]) => (
           <div key={k} className="rounded-xl p-3" style={{ background: "#F8FAFC" }}>
             <p className="text-xs text-slate-500">{k}</p>
@@ -111,16 +111,16 @@ function ModernTemplate({ data }: { data: InvoiceData }) {
         ))}
       </div>
       <div className="rounded-2xl p-4 space-y-2" style={{ background: theme.primaryLight }}>
-        <div className="flex justify-between text-sm"><span className="text-slate-600">Total Bill</span><span className="font-medium">{formatCurrency(data.totalBill)}</span></div>
+        <div className="flex justify-between text-sm"><span className="text-slate-600">Total Tagihan</span><span className="font-medium">{formatCurrency(data.totalBill)}</span></div>
         <div className="flex justify-between text-sm"><span className="text-slate-600">DP</span><span className="font-medium">{formatCurrency(data.dp)}</span></div>
         <div className="flex justify-between text-base pt-2 border-t" style={{ borderColor: theme.primaryLight }}>
-          <span className="font-bold" style={{ color: theme.primaryDark }}>Remaining</span>
+          <span className="font-bold" style={{ color: theme.primaryDark }}>Sisa</span>
           <span className="font-bold" style={{ color: theme.primaryDark }}>{formatCurrency(data.remaining)}</span>
         </div>
       </div>
       <div className="flex items-center justify-between mt-4">
         <StatusBadge status={data.status} primary={theme.primary} primaryLight={theme.primaryLight} primaryDark={theme.primaryDark} />
-        {data.signature && <img src={data.signature} alt="signature" className="h-14" />}
+        {data.signature && <img src={data.signature} alt="tanda tangan" className="h-14" />}
       </div>
       {data.notes && <p className="mt-3 text-sm text-slate-600">{data.notes}</p>}
     </div>
@@ -146,12 +146,12 @@ function ProfessionalTemplate({ data }: { data: InvoiceData }) {
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-3 mb-5">
         {[
-          ["Patient", data.patientName],
-          ["Hospital", data.hospital],
-          ["Location", data.location],
-          ["Service", data.service],
+          ["Pasien", data.patientName],
+          ["Rumah Sakit", data.hospital],
+          ["Lokasi", data.location],
+          ["Layanan", data.service],
           ["Caregiver", data.caregiver],
-          ["Duration", data.duration],
+          ["Durasi", data.duration],
         ].map(([k, v]) => (
           <div key={k}>
             <p className="text-xs text-slate-500">{k}</p>
@@ -160,17 +160,17 @@ function ProfessionalTemplate({ data }: { data: InvoiceData }) {
         ))}
       </div>
       <div className="rounded-xl border p-4 space-y-2" style={{ borderColor: theme.border }}>
-        <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: theme.primaryDark }}>Payment Summary</p>
-        <div className="flex justify-between text-sm"><span className="text-slate-600">Total Bill</span><span className="font-medium">{formatCurrency(data.totalBill)}</span></div>
-        <div className="flex justify-between text-sm"><span className="text-slate-600">DP Paid</span><span className="font-medium">{formatCurrency(data.dp)}</span></div>
+        <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: theme.primaryDark }}>Ringkasan Pembayaran</p>
+        <div className="flex justify-between text-sm"><span className="text-slate-600">Total Tagihan</span><span className="font-medium">{formatCurrency(data.totalBill)}</span></div>
+        <div className="flex justify-between text-sm"><span className="text-slate-600">DP Dibayar</span><span className="font-medium">{formatCurrency(data.dp)}</span></div>
         <div className="flex justify-between text-base pt-2 border-t" style={{ borderColor: theme.border }}>
-          <span className="font-bold">Remaining</span>
+          <span className="font-bold">Sisa</span>
           <span className="font-bold" style={{ color: theme.primaryDark }}>{formatCurrency(data.remaining)}</span>
         </div>
       </div>
       {data.notes && <p className="mt-4 text-sm text-slate-600">{data.notes}</p>}
-      {data.signature && <div className="mt-4 flex justify-between items-end"><div><p className="text-xs text-slate-500 mb-1">Authorized Signature</p><img src={data.signature} alt="signature" className="h-14" /></div></div>}
-      <p className="mt-4 text-xs text-slate-400 text-center">Generated by Ari Caregiver Invoice</p>
+      {data.signature && <div className="mt-4 flex justify-between items-end"><div><p className="text-xs text-slate-500 mb-1">Tanda Tangan Otorisasi</p><img src={data.signature} alt="tanda tangan" className="h-14" /></div></div>}
+      <p className="mt-4 text-xs text-slate-400 text-center">Dibuat dengan Ari Caregiver Invoice</p>
     </div>
   );
 }
@@ -186,11 +186,11 @@ function MinimalTemplate({ data }: { data: InvoiceData }) {
       </div>
       <div className="space-y-1 mb-6">
         {[
-          ["Patient", data.patientName],
-          ["Hospital", data.hospital],
-          ["Service", data.service],
+          ["Pasien", data.patientName],
+          ["Rumah Sakit", data.hospital],
+          ["Layanan", data.service],
           ["Caregiver", data.caregiver],
-          ["Duration", data.duration],
+          ["Durasi", data.duration],
         ].map(([k, v]) => (
           <div key={k} className="flex justify-between text-sm py-1">
             <span className="text-slate-400">{k}</span>
@@ -205,7 +205,7 @@ function MinimalTemplate({ data }: { data: InvoiceData }) {
         </div>
         <div className="flex justify-between text-sm mb-1"><span className="text-slate-500">DP</span><span>{formatCurrency(data.dp)}</span></div>
         <div className="flex justify-between items-baseline pt-2 border-t" style={{ borderColor: "#F1F5F9" }}>
-          <span className="text-lg font-serif" style={{ color: theme.primaryDark }}>Remaining</span>
+          <span className="text-lg font-serif" style={{ color: theme.primaryDark }}>Sisa</span>
           <span className="text-2xl font-serif font-bold" style={{ color: theme.primaryDark }}>{formatCurrency(data.remaining)}</span>
         </div>
       </div>
@@ -213,7 +213,7 @@ function MinimalTemplate({ data }: { data: InvoiceData }) {
         <StatusBadge status={data.status} primary={theme.primary} primaryLight={theme.primaryLight} primaryDark={theme.primaryDark} />
       </div>
       {data.notes && <p className="mt-4 text-sm text-slate-600 text-center italic">{data.notes}</p>}
-      {data.signature && <div className="mt-4 text-center"><img src={data.signature} alt="signature" className="h-14 mx-auto" /></div>}
+      {data.signature && <div className="mt-4 text-center"><img src={data.signature} alt="tanda tangan" className="h-14 mx-auto" /></div>}
     </div>
   );
 }

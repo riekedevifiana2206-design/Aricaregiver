@@ -75,7 +75,7 @@ export function Header({ title }: HeaderProps) {
       {themeOpen && (
         <div className="mt-3 surface p-3 animate-scale-in">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-semibold">Color Theme</span>
+            <span className="text-sm font-semibold">Tema Warna</span>
             <span className="text-xs" style={{ color: "var(--c-text-muted)" }}>{theme.name}</span>
           </div>
           <div className="grid grid-cols-5 gap-2">
