@@ -16,12 +16,12 @@ import { BookingDadakanPreview, BookingLengkapPreview } from "./booking/BookingP
 type Tab = "dadakan" | "lengkap";
 
 const DADAKAN_INIT: BookingDadakanData = {
-  patientName: "", phone: "", hospital: "", date: todayISO(), duration: "", notes: "",
+  patientName: "", phone: "", hospital: "", date: todayISO(), duration: "", notes: "", penanggungJawab: "",
 };
 
 const LENGKAP_INIT: BookingLengkapData = {
   patientName: "", gender: "", age: "", address: "", hospital: "", room: "",
-  caregiver: "", service: "", schedule: "", duration: "", emergency: "", payment: "", notes: "",
+  caregiver: "", service: "", schedule: "", duration: "", emergency: "", payment: "", notes: "", penanggungJawab: "",
 };
 
 export function BookingScreen() {
@@ -34,12 +34,12 @@ export function BookingScreen() {
 
   const shareDadakan = () => {
     const d = dadakan.data;
-    shareWhatsApp(`*Booking Dadakan - Ari Caregiver*\nPasien: ${d.patientName}\nTelepon: ${d.phone}\nRumah Sakit: ${d.hospital}\nTanggal: ${formatDate(d.date)}\nDurasi: ${d.duration}\nCatatan: ${d.notes}`);
+    shareWhatsApp(`*Booking Dadakan - Ari Caregiver*\nPasien: ${d.patientName}\nTelepon: ${d.phone}\nRumah Sakit: ${d.hospital}\nTanggal: ${formatDate(d.date)}\nDurasi: ${d.duration}\nPenanggung Jawab: ${d.penanggungJawab}\nCatatan: ${d.notes}`);
   };
 
   const shareLengkap = () => {
     const d = lengkap.data;
-    shareWhatsApp(`*Booking Lengkap - Ari Caregiver*\nPasien: ${d.patientName} (${d.gender}, ${d.age})\nRumah Sakit: ${d.hospital} - ${d.room}\nCaregiver: ${d.caregiver}\nLayanan: ${d.service}\nJadwal: ${d.schedule}\nDurasi: ${d.duration}\nPembayaran: ${d.payment}\nDarurat: ${d.emergency}\nCatatan: ${d.notes}`);
+    shareWhatsApp(`*Booking Lengkap - Ari Caregiver*\nPasien: ${d.patientName} (${d.gender}, ${d.age})\nRumah Sakit: ${d.hospital} - ${d.room}\nCaregiver: ${d.caregiver}\nLayanan: ${d.service}\nJadwal: ${d.schedule}\nDurasi: ${d.duration}\nPembayaran: ${d.payment}\nDarurat: ${d.emergency}\nPenanggung Jawab: ${d.penanggungJawab}\nCatatan: ${d.notes}`);
   };
 
   return (
@@ -58,6 +58,7 @@ export function BookingScreen() {
           <Field label="Tanggal Booking"><TextInput type="date" value={dadakan.data.date} onChange={(e) => dadakan.update("date", e.target.value)} /></Field>
           <Field label="Durasi"><TextInput value={dadakan.data.duration} onChange={(e) => dadakan.update("duration", e.target.value)} placeholder="misal 8 jam" /></Field>
           <Field label="Catatan"><TextArea value={dadakan.data.notes} onChange={(e) => dadakan.update("notes", e.target.value)} placeholder="Catatan tambahan" /></Field>
+          <Field label="Penanggung Jawab"><TextInput value={dadakan.data.penanggungJawab} onChange={(e) => dadakan.update("penanggungJawab", e.target.value)} placeholder="Nama penanggung jawab" /></Field>
 
           <div className="grid grid-cols-2 gap-2 pt-1">
             <Button variant="ghost" onClick={() => setPreview(true)}>Pratinjau</Button>
@@ -93,6 +94,7 @@ export function BookingScreen() {
           <Field label="Kontak Darurat"><TextInput value={lengkap.data.emergency} onChange={(e) => lengkap.update("emergency", e.target.value)} /></Field>
           <Field label="Pembayaran"><TextInput value={lengkap.data.payment} onChange={(e) => lengkap.update("payment", e.target.value)} placeholder="misal Tunai / Transfer" /></Field>
           <Field label="Catatan"><TextArea value={lengkap.data.notes} onChange={(e) => lengkap.update("notes", e.target.value)} /></Field>
+          <Field label="Penanggung Jawab"><TextInput value={lengkap.data.penanggungJawab} onChange={(e) => lengkap.update("penanggungJawab", e.target.value)} placeholder="Nama penanggung jawab" /></Field>
 
           <div className="grid grid-cols-2 gap-2 pt-1">
             <Button variant="ghost" onClick={() => setPreview(true)}>Pratinjau</Button>

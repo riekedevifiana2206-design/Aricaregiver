@@ -13,7 +13,7 @@ import { Logo } from "../components/ui/Logo";
 import { todayISO, formatDate, formatCurrency } from "../lib/utils";
 import type { DpData } from "../types";
 
-const INIT: DpData = { totalBill: "", dpAmount: "", remaining: "", notes: "", signature: "" };
+const INIT: DpData = { totalBill: "", dpAmount: "", remaining: "", notes: "", signature: "", penanggungJawab: "" };
 
 export function DpScreen() {
   const { theme } = useSettings();
@@ -47,6 +47,12 @@ export function DpScreen() {
           <img src={previewData.signature} alt="tanda tangan" className="h-16" />
         </div>
       )}
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <p className="text-xs text-slate-500">Penanggung Jawab</p>
+          <p className="text-sm font-medium">{previewData.penanggungJawab || "-"}</p>
+        </div>
+      </div>
       <p className="mt-4 text-xs text-slate-400">Dibuat dengan Ari Caregiver Invoice</p>
     </div>
   );
@@ -62,6 +68,7 @@ export function DpScreen() {
         </div>
         <Field label="Catatan"><TextArea value={form.data.notes} onChange={(e) => form.update("notes", e.target.value)} /></Field>
         <SignaturePad label="Tanda Tangan Digital" value={form.data.signature} onChange={(v) => form.update("signature", v)} />
+        <Field label="Penanggung Jawab"><TextInput value={form.data.penanggungJawab} onChange={(e) => form.update("penanggungJawab", e.target.value)} placeholder="Nama penanggung jawab" /></Field>
 
         <div className="grid grid-cols-2 gap-2 pt-1">
           <Button variant="ghost" onClick={() => setPreview(true)}>Pratinjau</Button>

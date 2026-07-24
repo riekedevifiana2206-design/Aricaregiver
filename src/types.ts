@@ -43,6 +43,7 @@ export interface BookingDadakanData {
   date: string;
   duration: string;
   notes: string;
+  penanggungJawab: string;
 }
 
 export interface BookingLengkapData {
@@ -59,6 +60,7 @@ export interface BookingLengkapData {
   emergency: string;
   payment: string;
   notes: string;
+  penanggungJawab: string;
 }
 
 export interface DpData {
@@ -67,6 +69,7 @@ export interface DpData {
   remaining: string;
   notes: string;
   signature: string;
+  penanggungJawab: string;
 }
 
 export interface InvoiceData {
@@ -84,6 +87,7 @@ export interface InvoiceData {
   status: string;
   notes: string;
   signature: string;
+  penanggungJawab: string;
 }
 
 export interface RefundData {
@@ -99,6 +103,7 @@ export interface RefundData {
   notes: string;
   signature1: string;
   signature2: string;
+  penanggungJawab: string;
 }
 
 export interface ThankYouData {
@@ -108,4 +113,5 @@ export interface ThankYouData {
   date: string;
   font: string;
   color: string;
+  penanggungJawab: string;
 }

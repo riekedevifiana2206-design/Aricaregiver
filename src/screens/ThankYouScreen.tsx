@@ -12,7 +12,7 @@ import type { ThankYouData } from "../types";
 
 const INIT: ThankYouData = {
   recipient: "", message: "Terima kasih atas kepercayaan dan perawatan Anda.", sender: "Ari Caregiver",
-  date: todayISO(), font: "Playfair Display", color: "#10B981",
+  date: todayISO(), font: "Playfair Display", color: "#10B981", penanggungJawab: "",
 };
 
 const FONTS = ["Playfair Display", "Libre Baskerville", "Poppins"];
@@ -31,6 +31,12 @@ export function ThankYouScreen() {
         <p className="text-lg font-semibold" style={{ color: form.data.color }}>{form.data.sender}</p>
         <p className="text-sm text-slate-500 mt-1">{formatDate(form.data.date)}</p>
       </div>
+      {form.data.penanggungJawab && (
+        <div className="mt-4 text-right">
+          <p className="text-xs text-slate-400">Penanggung Jawab</p>
+          <p className="text-sm font-medium text-slate-600">{form.data.penanggungJawab}</p>
+        </div>
+      )}
     </div>
   );
 
@@ -52,6 +58,7 @@ export function ThankYouScreen() {
             <TextInput value={form.data.color} onChange={(e) => form.update("color", e.target.value)} className="flex-1" />
           </div>
         </Field>
+        <Field label="Penanggung Jawab"><TextInput value={form.data.penanggungJawab} onChange={(e) => form.update("penanggungJawab", e.target.value)} placeholder="Nama penanggung jawab" /></Field>
 
         <div className="grid grid-cols-2 gap-2 pt-1">
           <Button variant="ghost" onClick={() => setPreview(true)}>Pratinjau</Button>

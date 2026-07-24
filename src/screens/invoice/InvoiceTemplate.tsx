@@ -77,6 +77,12 @@ function ClassicTemplate({ data }: { data: InvoiceData }) {
       </div>
       {data.notes && <p className="mt-3 text-sm text-slate-600 border-t pt-3" style={{ borderColor: "#F1F5F9" }}>Catatan: {data.notes}</p>}
       {data.signature && <div className="mt-4"><p className="text-xs text-slate-500 mb-1">Tanda Tangan Otorisasi</p><img src={data.signature} alt="tanda tangan" className="h-16" /></div>}
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <p className="text-xs text-slate-500">Penanggung Jawab</p>
+          <p className="text-sm font-medium">{data.penanggungJawab || "-"}</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -123,6 +129,12 @@ function ModernTemplate({ data }: { data: InvoiceData }) {
         {data.signature && <img src={data.signature} alt="tanda tangan" className="h-14" />}
       </div>
       {data.notes && <p className="mt-3 text-sm text-slate-600">{data.notes}</p>}
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <p className="text-xs text-slate-500">Penanggung Jawab</p>
+          <p className="text-sm font-medium">{data.penanggungJawab || "-"}</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -170,6 +182,12 @@ function ProfessionalTemplate({ data }: { data: InvoiceData }) {
       </div>
       {data.notes && <p className="mt-4 text-sm text-slate-600">{data.notes}</p>}
       {data.signature && <div className="mt-4 flex justify-between items-end"><div><p className="text-xs text-slate-500 mb-1">Tanda Tangan Otorisasi</p><img src={data.signature} alt="tanda tangan" className="h-14" /></div></div>}
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <p className="text-xs text-slate-500">Penanggung Jawab</p>
+          <p className="text-sm font-medium">{data.penanggungJawab || "-"}</p>
+        </div>
+      </div>
       <p className="mt-4 text-xs text-slate-400 text-center">Dibuat dengan Ari Caregiver Invoice</p>
     </div>
   );
@@ -214,6 +232,12 @@ function MinimalTemplate({ data }: { data: InvoiceData }) {
       </div>
       {data.notes && <p className="mt-4 text-sm text-slate-600 text-center italic">{data.notes}</p>}
       {data.signature && <div className="mt-4 text-center"><img src={data.signature} alt="tanda tangan" className="h-14 mx-auto" /></div>}
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <p className="text-xs text-slate-400">Penanggung Jawab</p>
+          <p className="text-sm font-medium text-slate-600">{data.penanggungJawab || "-"}</p>
+        </div>
+      </div>
     </div>
   );
 }

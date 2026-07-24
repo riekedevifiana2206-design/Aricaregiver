@@ -17,7 +17,7 @@ const INIT: InvoiceData = {
   invoiceNumber: generateInvoiceNumber(),
   date: todayISO(),
   patientName: "", hospital: "", location: "", service: "", caregiver: "",
-  duration: "", totalBill: "", dp: "", remaining: "", status: "Belum Lunas", notes: "", signature: "",
+  duration: "", totalBill: "", dp: "", remaining: "", status: "Belum Lunas", notes: "", signature: "", penanggungJawab: "",
 };
 
 const TEMPLATES: { id: TemplateId; name: string }[] = [
@@ -86,6 +86,7 @@ export function InvoiceScreen() {
         </Field>
         <Field label="Catatan"><TextArea value={form.data.notes} onChange={(e) => form.update("notes", e.target.value)} /></Field>
         <SignaturePad label="Tanda Tangan Digital" value={form.data.signature} onChange={(v) => form.update("signature", v)} />
+        <Field label="Penanggung Jawab"><TextInput value={form.data.penanggungJawab} onChange={(e) => form.update("penanggungJawab", e.target.value)} placeholder="Nama penanggung jawab" /></Field>
 
         <div className="grid grid-cols-2 gap-2 pt-1">
           <Button variant="ghost" onClick={() => setPreview(true)}>Pratinjau</Button>

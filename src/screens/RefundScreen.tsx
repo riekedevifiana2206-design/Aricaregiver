@@ -18,7 +18,7 @@ const INIT: RefundData = {
   documentNumber: generateDocNumber("RFD"),
   date: todayISO(),
   patient: "", hospital: "", reason: "", totalBill: "", refundAmount: "",
-  refundMethod: "Tunai", notes: "", signature1: "", signature2: "",
+  refundMethod: "Tunai", notes: "", signature1: "", signature2: "", penanggungJawab: "",
 };
 
 const TYPES = ["Refund", "Pembatalan", "Refund + Pembatalan"];
@@ -55,6 +55,12 @@ export function RefundScreen() {
         <div>
           <p className="text-xs text-slate-500 mb-1">Tanda Tangan 2</p>
           {form.data.signature2 ? <img src={form.data.signature2} alt="tanda tangan 2" className="h-16" /> : <div className="h-16 border-b border-dashed border-slate-300" />}
+        </div>
+      </div>
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <p className="text-xs text-slate-500">Penanggung Jawab</p>
+          <p className="text-sm font-medium">{form.data.penanggungJawab || "-"}</p>
         </div>
       </div>
       <p className="mt-4 text-xs text-slate-400">Dibuat dengan Ari Caregiver Invoice</p>
@@ -98,6 +104,7 @@ export function RefundScreen() {
         <Field label="Catatan"><TextArea value={form.data.notes} onChange={(e) => form.update("notes", e.target.value)} /></Field>
         <SignaturePad label="Tanda Tangan 1 (Pasien / Keluarga)" value={form.data.signature1} onChange={(v) => form.update("signature1", v)} />
         <SignaturePad label="Tanda Tangan 2 (Caregiver / Admin)" value={form.data.signature2} onChange={(v) => form.update("signature2", v)} />
+        <Field label="Penanggung Jawab"><TextInput value={form.data.penanggungJawab} onChange={(e) => form.update("penanggungJawab", e.target.value)} placeholder="Nama penanggung jawab" /></Field>
 
         <div className="grid grid-cols-2 gap-2 pt-1">
           <Button variant="ghost" onClick={() => setPreview(true)}>Pratinjau</Button>

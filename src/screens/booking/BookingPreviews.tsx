@@ -39,6 +39,12 @@ export function BookingDadakanPreview({ data }: BookingPreviewProps) {
           <p>{data.notes}</p>
         </div>
       )}
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <p className="text-xs text-slate-500">Penanggung Jawab</p>
+          <p className="text-sm font-medium">{data.penanggungJawab || "-"}</p>
+        </div>
+      </div>
       <p className="mt-4 text-xs text-slate-400">Dibuat dengan Ari Caregiver Invoice</p>
     </div>
   );
@@ -87,6 +93,12 @@ export function BookingLengkapPreview({ data }: BookingLengkapPreviewProps) {
           <p>{data.notes}</p>
         </div>
       )}
+      <div className="flex justify-end mt-4">
+        <div className="text-right">
+          <p className="text-xs text-slate-500">Penanggung Jawab</p>
+          <p className="text-sm font-medium">{data.penanggungJawab || "-"}</p>
+        </div>
+      </div>
       <p className="mt-4 text-xs text-slate-400">Dibuat dengan Ari Caregiver Invoice</p>
     </div>
   );
