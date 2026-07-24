@@ -15,6 +15,7 @@ import { todayISO, formatDate, formatCurrency, itemsTotal, uid } from "../lib/ut
 import type { DpData, LineItem } from "../types";
 
 const INIT: DpData = {
+  patientName: "", hospital: "", location: "", caregiver: "",
   items: [{ id: uid(), description: "", duration: "", amount: "" }],
   dpAmount: "", remaining: "", notes: "", signature: "", penanggungJawab: "",
 };
@@ -38,6 +39,10 @@ export function DpScreen() {
       <h2 className="text-xl font-serif font-semibold mb-4">Kuitansi Down Payment</h2>
       <div className="space-y-2.5">
         <Row k="Tanggal" v={formatDate(todayISO())} />
+        <Row k="Nama Pasien" v={form.data.patientName} />
+        <Row k="Rumah Sakit / Faskes" v={form.data.hospital} />
+        <Row k="Lokasi" v={form.data.location} />
+        <Row k="Caregiver" v={form.data.caregiver} />
       </div>
       <div className="mt-4">
         <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: theme.primaryDark }}>Rincian Layanan</p>
@@ -68,6 +73,12 @@ export function DpScreen() {
   return (
     <div className="space-y-4 animate-fade-in">
       <Card className="space-y-3">
+        <Field label="Nama Pasien"><TextInput value={form.data.patientName} onChange={(e) => form.update("patientName", e.target.value)} placeholder="Nama pasien" /></Field>
+        <Field label="Rumah Sakit / Faskes"><TextInput value={form.data.hospital} onChange={(e) => form.update("hospital", e.target.value)} placeholder="Rumah sakit / faskes" /></Field>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Lokasi"><TextInput value={form.data.location} onChange={(e) => form.update("location", e.target.value)} placeholder="Lokasi" /></Field>
+          <Field label="Caregiver"><TextInput value={form.data.caregiver} onChange={(e) => form.update("caregiver", e.target.value)} placeholder="Nama caregiver" /></Field>
+        </div>
         <div>
           <span className="label">Daftar Layanan & Tagihan</span>
           <LineItemsEditor items={form.data.items} onChange={(items) => form.update("items", items)} />

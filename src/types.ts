@@ -72,6 +72,10 @@ export interface BookingLengkapData {
 }
 
 export interface DpData {
+  patientName: string;
+  hospital: string;
+  location: string;
+  caregiver: string;
   items: LineItem[];
   dpAmount: string;
   remaining: string;
