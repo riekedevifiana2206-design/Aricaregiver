@@ -12,6 +12,8 @@ export type ThemeId =
 
 export type TemplateId = "classic" | "modern" | "professional" | "minimal";
 
+export type ThankYouDesign = "warm" | "ocean" | "sunset" | "lavender";
+
 export type DocKind = "booking-dadakan" | "booking-lengkap" | "dp" | "invoice" | "refund" | "thank";
 
 export interface RecentDoc {
@@ -36,12 +38,19 @@ export interface ThemeColors {
   border: string;
 }
 
+export interface LineItem {
+  id: string;
+  description: string;
+  duration: string;
+  amount: string;
+}
+
 export interface BookingDadakanData {
   patientName: string;
   phone: string;
   hospital: string;
   date: string;
-  duration: string;
+  items: LineItem[];
   notes: string;
   penanggungJawab: string;
 }
@@ -54,9 +63,8 @@ export interface BookingLengkapData {
   hospital: string;
   room: string;
   caregiver: string;
-  service: string;
   schedule: string;
-  duration: string;
+  items: LineItem[];
   emergency: string;
   payment: string;
   notes: string;
@@ -64,7 +72,7 @@ export interface BookingLengkapData {
 }
 
 export interface DpData {
-  totalBill: string;
+  items: LineItem[];
   dpAmount: string;
   remaining: string;
   notes: string;
@@ -78,10 +86,8 @@ export interface InvoiceData {
   patientName: string;
   hospital: string;
   location: string;
-  service: string;
   caregiver: string;
-  duration: string;
-  totalBill: string;
+  items: LineItem[];
   dp: string;
   remaining: string;
   status: string;
@@ -97,7 +103,7 @@ export interface RefundData {
   patient: string;
   hospital: string;
   reason: string;
-  totalBill: string;
+  items: LineItem[];
   refundAmount: string;
   refundMethod: string;
   notes: string;
@@ -112,6 +118,6 @@ export interface ThankYouData {
   sender: string;
   date: string;
   font: string;
-  color: string;
+  design: ThankYouDesign;
   penanggungJawab: string;
 }

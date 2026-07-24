@@ -6,18 +6,21 @@ import { PreviewModal } from "../components/ui/PreviewModal";
 import { DownloadBar } from "../components/ui/DownloadBar";
 import { ExportTarget } from "../components/ui/ExportTarget";
 import { SignaturePad } from "../components/ui/SignaturePad";
+import { LineItemsEditor } from "../components/ui/LineItemsEditor";
 import { usePersistentForm } from "../hooks/usePersistentForm";
 import { useRecentDocs } from "../hooks/useRecentDocs";
 import { useSettings } from "../context/SettingsContext";
 import { Logo } from "../components/ui/Logo";
-import { todayISO, formatDate, formatCurrency, generateDocNumber } from "../lib/utils";
-import type { RefundData } from "../types";
+import { todayISO, formatDate, formatCurrency, generateDocNumber, itemsTotal, uid } from "../lib/utils";
+import type { RefundData, LineItem } from "../types";
 
 const INIT: RefundData = {
   type: "Refund",
   documentNumber: generateDocNumber("RFD"),
   date: todayISO(),
-  patient: "", hospital: "", reason: "", totalBill: "", refundAmount: "",
+  patient: "", hospital: "", reason: "",
+  items: [{ id: uid(), description: "", duration: "", amount: "" }],
+  refundAmount: "",
   refundMethod: "Tunai", notes: "", signature1: "", signature2: "", penanggungJawab: "",
 };
 
@@ -28,6 +31,8 @@ export function RefundScreen() {
   const [preview, setPreview] = useState(false);
   const form = usePersistentForm("refund", INIT);
   const { addDoc } = useRecentDocs();
+
+  const total = itemsTotal(form.data.items);
 
   const previewEl = (
     <div className="bg-white text-slate-900 p-6 rounded-2xl">
@@ -42,7 +47,16 @@ export function RefundScreen() {
         <Row k="Pasien" v={form.data.patient} />
         <Row k="Rumah Sakit" v={form.data.hospital} />
         <Row k="Alasan" v={form.data.reason} />
-        <Row k="Total Tagihan" v={formatCurrency(form.data.totalBill)} />
+      </div>
+      <div className="mt-4">
+        <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: theme.primaryDark }}>Rincian Layanan</p>
+        <ItemsList items={form.data.items} theme={theme} />
+        <div className="flex justify-between items-center mt-2 px-3 py-2 rounded-xl" style={{ background: theme.primaryLight }}>
+          <span className="text-sm font-semibold" style={{ color: theme.primaryDark }}>Total Tagihan</span>
+          <span className="text-lg font-bold" style={{ color: theme.primaryDark }}>{formatCurrency(String(total))}</span>
+        </div>
+      </div>
+      <div className="mt-4 space-y-2.5">
         <Row k="Jumlah Refund" v={formatCurrency(form.data.refundAmount)} />
         <Row k="Metode Refund" v={form.data.refundMethod} />
       </div>
@@ -92,10 +106,11 @@ export function RefundScreen() {
         <Field label="Pasien"><TextInput value={form.data.patient} onChange={(e) => form.update("patient", e.target.value)} /></Field>
         <Field label="Rumah Sakit"><TextInput value={form.data.hospital} onChange={(e) => form.update("hospital", e.target.value)} /></Field>
         <Field label="Alasan"><TextArea value={form.data.reason} onChange={(e) => form.update("reason", e.target.value)} /></Field>
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Total Tagihan"><TextInput inputMode="decimal" value={form.data.totalBill} onChange={(e) => form.update("totalBill", e.target.value)} /></Field>
-          <Field label="Jumlah Refund"><TextInput inputMode="decimal" value={form.data.refundAmount} onChange={(e) => form.update("refundAmount", e.target.value)} /></Field>
+        <div>
+          <span className="label">Daftar Layanan & Tagihan</span>
+          <LineItemsEditor items={form.data.items} onChange={(items) => form.update("items", items)} />
         </div>
+        <Field label="Jumlah Refund"><TextInput inputMode="decimal" value={form.data.refundAmount} onChange={(e) => form.update("refundAmount", e.target.value)} /></Field>
         <Field label="Metode Refund">
           <Select value={form.data.refundMethod} onChange={(e) => form.update("refundMethod", e.target.value)}>
             <option>Tunai</option><option>Transfer Bank</option><option>E-Wallet</option><option>Lainnya</option>
@@ -118,6 +133,26 @@ export function RefundScreen() {
       <PreviewModal open={preview} onClose={() => setPreview(false)}>
         {previewEl}
       </PreviewModal>
+    </div>
+  );
+}
+
+function ItemsList({ items, theme }: { items: LineItem[]; theme: { primaryLight: string; primaryDark: string } }) {
+  const hasDuration = items.some((it) => it.duration);
+  return (
+    <div className="rounded-xl overflow-hidden">
+      <div className="grid gap-2 text-xs font-semibold uppercase px-3 py-2" style={{ background: theme.primaryLight, color: theme.primaryDark, gridTemplateColumns: hasDuration ? "1fr auto auto" : "1fr auto" }}>
+        <span>Deskripsi</span>
+        {hasDuration && <span>Durasi</span>}
+        <span className="text-right">Jumlah</span>
+      </div>
+      {items.map((it, i) => (
+        <div key={it.id} className="grid gap-2 text-sm px-3 py-2 border-b" style={{ borderColor: "#F1F5F9", gridTemplateColumns: hasDuration ? "1fr auto auto" : "1fr auto" }}>
+          <span>{it.description || `Layanan ${i + 1}`}</span>
+          {hasDuration && <span className="text-slate-500">{it.duration || "-"}</span>}
+          <span className="text-right font-medium">{formatCurrency(it.amount)}</span>
+        </div>
+      ))}
     </div>
   );
 }
