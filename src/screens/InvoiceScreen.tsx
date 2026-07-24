@@ -6,18 +6,20 @@ import { PreviewModal } from "../components/ui/PreviewModal";
 import { DownloadBar } from "../components/ui/DownloadBar";
 import { ExportTarget } from "../components/ui/ExportTarget";
 import { SignaturePad } from "../components/ui/SignaturePad";
+import { LineItemsEditor } from "../components/ui/LineItemsEditor";
 import { usePersistentForm } from "../hooks/usePersistentForm";
 import { useRecentDocs } from "../hooks/useRecentDocs";
 import { useSettings } from "../context/SettingsContext";
 import { InvoiceTemplate } from "./invoice/InvoiceTemplate";
-import { todayISO, generateInvoiceNumber, clsx } from "../lib/utils";
+import { todayISO, generateInvoiceNumber, clsx, itemsTotal, formatCurrency, uid } from "../lib/utils";
 import type { InvoiceData, TemplateId } from "../types";
 
 const INIT: InvoiceData = {
   invoiceNumber: generateInvoiceNumber(),
   date: todayISO(),
-  patientName: "", hospital: "", location: "", service: "", caregiver: "",
-  duration: "", totalBill: "", dp: "", remaining: "", status: "Belum Lunas", notes: "", signature: "",
+  patientName: "", hospital: "", location: "", caregiver: "",
+  items: [{ id: uid(), description: "", duration: "", amount: "" }],
+  dp: "", remaining: "", status: "Belum Lunas", notes: "", signature: "", penanggungJawab: "",
 };
 
 const TEMPLATES: { id: TemplateId; name: string }[] = [
@@ -33,7 +35,7 @@ export function InvoiceScreen() {
   const form = usePersistentForm("invoice", INIT);
   const { addDoc } = useRecentDocs();
 
-  const total = parseFloat((form.data.totalBill || "").replace(/[^\d.-]/g, "")) || 0;
+  const total = itemsTotal(form.data.items);
   const dp = parseFloat((form.data.dp || "").replace(/[^\d.-]/g, "")) || 0;
   const remaining = Math.max(total - dp, 0);
   const previewData = { ...form.data, remaining: String(remaining) };
@@ -66,18 +68,17 @@ export function InvoiceScreen() {
           <Field label="Rumah Sakit"><TextInput value={form.data.hospital} onChange={(e) => form.update("hospital", e.target.value)} /></Field>
           <Field label="Lokasi"><TextInput value={form.data.location} onChange={(e) => form.update("location", e.target.value)} /></Field>
         </div>
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Layanan"><TextInput value={form.data.service} onChange={(e) => form.update("service", e.target.value)} /></Field>
-          <Field label="Caregiver"><TextInput value={form.data.caregiver} onChange={(e) => form.update("caregiver", e.target.value)} /></Field>
+        <Field label="Caregiver"><TextInput value={form.data.caregiver} onChange={(e) => form.update("caregiver", e.target.value)} /></Field>
+
+        <div>
+          <span className="label">Daftar Layanan & Tagihan</span>
+          <LineItemsEditor items={form.data.items} onChange={(items) => form.update("items", items)} />
         </div>
-        <Field label="Durasi"><TextInput value={form.data.duration} onChange={(e) => form.update("duration", e.target.value)} /></Field>
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Total Tagihan"><TextInput inputMode="decimal" value={form.data.totalBill} onChange={(e) => form.update("totalBill", e.target.value)} /></Field>
-          <Field label="DP"><TextInput inputMode="decimal" value={form.data.dp} onChange={(e) => form.update("dp", e.target.value)} /></Field>
-        </div>
+
+        <Field label="DP (Down Payment)"><TextInput inputMode="decimal" value={form.data.dp} onChange={(e) => form.update("dp", e.target.value)} placeholder="0" /></Field>
         <div className="p-3 rounded-xl flex items-center justify-between" style={{ background: "color-mix(in srgb, var(--c-primary) 10%, transparent)" }}>
           <span className="text-sm font-medium">Sisa Pembayaran</span>
-          <span className="text-lg font-bold" style={{ color: "var(--c-primary-dark)" }}>{remaining.toLocaleString()}</span>
+          <span className="text-lg font-bold" style={{ color: "var(--c-primary-dark)" }}>{formatCurrency(String(remaining))}</span>
         </div>
         <Field label="Status Pembayaran">
           <Select value={form.data.status} onChange={(e) => form.update("status", e.target.value)}>
@@ -86,6 +87,7 @@ export function InvoiceScreen() {
         </Field>
         <Field label="Catatan"><TextArea value={form.data.notes} onChange={(e) => form.update("notes", e.target.value)} /></Field>
         <SignaturePad label="Tanda Tangan Digital" value={form.data.signature} onChange={(v) => form.update("signature", v)} />
+        <Field label="Penanggung Jawab"><TextInput value={form.data.penanggungJawab} onChange={(e) => form.update("penanggungJawab", e.target.value)} placeholder="Nama penanggung jawab" /></Field>
 
         <div className="grid grid-cols-2 gap-2 pt-1">
           <Button variant="ghost" onClick={() => setPreview(true)}>Pratinjau</Button>

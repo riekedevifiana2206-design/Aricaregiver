@@ -36,6 +36,10 @@ export function uid(): string {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
+export function itemsTotal(items: { amount: string }[]): number {
+  return items.reduce((sum, it) => sum + (parseFloat((it.amount || "").replace(/[^\d.-]/g, "")) || 0), 0);
+}
+
 export function clsx(...parts: (string | false | null | undefined)[]): string {
   return parts.filter(Boolean).join(" ");
 }
