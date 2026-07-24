@@ -12,7 +12,7 @@ export type ThemeId =
 
 export type TemplateId = "classic" | "modern" | "professional" | "minimal";
 
-export type ThankYouDesign = "warm" | "ocean" | "sunset" | "lavender";
+export type ThankYouDesign = string;
 
 export type DocKind = "booking-dadakan" | "booking-lengkap" | "dp" | "invoice" | "refund" | "thank";
 
